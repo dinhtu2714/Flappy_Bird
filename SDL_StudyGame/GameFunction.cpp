@@ -51,6 +51,7 @@ void GameFunction::Initialize()
             floor = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/floor.png", renderer);
             pi1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
             pi2.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
+            pi3.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
             p.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird1.png", renderer);
             p.CreateTexture1("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird2.png", renderer);
             p.CreateTexture2("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird3.png", renderer);
@@ -73,18 +74,22 @@ void GameFunction::UpdatePipe()
     if (Start)
     {
         if (pi_x[1] <=-52)
-            pi_x[1] = 288;
-        pi1.setDes(pi_x[1], -195, 52, 320);
-        pi1.setDes2(pi_x[1], 230, 52, 320);
+            pi_x[1] = 465;
+        pi1.setDes(pi_x[1], -130, 52, 320);
+        pi1.setDes2(pi_x[1], 295, 52, 320);
         pi_x[1] -=1;
         
         if (pi_x[2] <= -52)
-            pi_x[2] = 288;
+            pi_x[2] = 465;
         pi2.setDes(pi_x[2], -45, 52, 320);
         pi2.setDes2(pi_x[2], 380, 52, 320);
         pi_x[2] -=1;
         
-        //if (pi_x[3] )
+        if (pi_x[3] <= -52)
+            pi_x[3] = 465;
+        pi3.setDes(pi_x[3], -200, 52, 320);
+        pi3.setDes2(pi_x[3], 225, 52, 320);
+        pi_x[3] -=1;
     }
 }
 
@@ -121,6 +126,8 @@ void GameFunction::Render()
     pi1.Render1(renderer);
     pi2.Render(renderer);
     pi2.Render1(renderer);
+    pi3.Render(renderer);
+    pi3.Render1(renderer);
     SDL_RenderCopy(renderer, floor, NULL, &desFloor);
     SDL_RenderCopy(renderer, floor, NULL, &desFloor2);
     p.Render(renderer);
