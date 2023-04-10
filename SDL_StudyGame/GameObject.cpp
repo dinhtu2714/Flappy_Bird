@@ -21,11 +21,11 @@ SDL_Rect& GameObject::getDes()
 {
     return des;
 }
-SDL_Rect& GameObject::getDes2()
+SDL_Rect GameObject::getDest()
 {
-    return des2;
+    return des;
 }
-
+//-------------------------Set
 void GameObject::setSrc(int x, int y , int w, int h)
 {
     src.x = x;
@@ -39,11 +39,4 @@ void GameObject::setDes(int x, int y, int w, int h)
     des.y = y;
     des.w = w;
     des.h = h;
-}
-void GameObject::setDes2(int x, int y, int w, int h)
-{
-    des2.x = x;
-    des2.y = y;
-    des2.w = w;
-    des2.h = h;
 }

@@ -49,9 +49,3 @@ void Player::CreateTexture2(const char* address, SDL_Renderer* ren)
 {
     Tex2 = TextureFunction::Texture(address, ren);
 }
-
-
-void Player::Render1(SDL_Renderer* ren)
-{
-    SDL_RenderCopy(ren, getTexture(), NULL, &getDes2());
-}

@@ -5,6 +5,9 @@
 #include "Player.hpp"
 #include "Background.hpp"
 #include "Pipe.hpp"
+#include <random>
+
+
 using namespace std;
 
 
@@ -24,8 +27,13 @@ private:
     SDL_Renderer* renderer;
     SDL_Rect desFloor, desFloor2;
     SDL_Texture* floor;
-    //int pi_x = 288;
-    int pi_x[3];
+    //random des_pipes_y
+    random_device rd;
+    mt19937 rng{rd()};
+    uniform_int_distribution<int> uni{1,290};
+    
+    int pi_y[5];
+    int pi_x[5];
 public:
     GameFunction();
     bool getGameState();

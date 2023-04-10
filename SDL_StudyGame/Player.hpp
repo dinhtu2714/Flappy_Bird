@@ -17,7 +17,6 @@ public:
     void Gravity();
     void Jump();
     void Render(SDL_Renderer* ren);
-    void Render1(SDL_Renderer* ren);
     void CreateTexture1(const char* address, SDL_Renderer* ren);
     void CreateTexture2(const char* address, SDL_Renderer* ren);
 };

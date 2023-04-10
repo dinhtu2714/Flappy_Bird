@@ -20,9 +20,13 @@ GameFunction::GameFunction()
     p.setSrc(0, 0, 34, 24);
     p.setDes(100,256, 34, 24);
     //setPi_x
-    pi_x[1] = 288;
-    pi_x[2] = 457;
-    pi_x[3] = 636;
+    pi_x[1] = 330;
+    pi_x[2] = 490;
+    pi_x[3] = 678;
+    //setPi_y
+    pi_y[1] = -uni(rng);
+    pi_y[2] = -uni(rng);
+    pi_y[3] = -uni(rng);
 }
 bool GameFunction::getGameState()
 {
@@ -74,21 +78,27 @@ void GameFunction::UpdatePipe()
     if (Start)
     {
         if (pi_x[1] <=-52)
+        {
             pi_x[1] = 465;
-        pi1.setDes(pi_x[1], -130, 52, 320);
-        pi1.setDes2(pi_x[1], 295, 52, 320);
+            pi_y[1] = (-1) * uni(rng);
+        }
+        pi1.setDes(pi_x[1], pi_y[1], 52, 320);
         pi_x[1] -=1;
         
         if (pi_x[2] <= -52)
+        {
             pi_x[2] = 465;
-        pi2.setDes(pi_x[2], -45, 52, 320);
-        pi2.setDes2(pi_x[2], 380, 52, 320);
+            pi_y[2] = (-1) * uni(rng);
+        }
+        pi2.setDes(pi_x[2], pi_y[2], 52, 320);
         pi_x[2] -=1;
         
         if (pi_x[3] <= -52)
+        {
             pi_x[3] = 465;
-        pi3.setDes(pi_x[3], -200, 52, 320);
-        pi3.setDes2(pi_x[3], 225, 52, 320);
+            pi_y[3] = (-1) * uni(rng);
+        }
+        pi3.setDes(pi_x[3], pi_y[3], 52, 320);
         pi_x[3] -=1;
     }
 }
@@ -123,11 +133,8 @@ void GameFunction::Render()
     SDL_RenderClear(renderer);
     b.Render(renderer);
     pi1.Render(renderer);
-    pi1.Render1(renderer);
     pi2.Render(renderer);
-    pi2.Render1(renderer);
     pi3.Render(renderer);
-    pi3.Render1(renderer);
     SDL_RenderCopy(renderer, floor, NULL, &desFloor);
     SDL_RenderCopy(renderer, floor, NULL, &desFloor2);
     p.Render(renderer);
