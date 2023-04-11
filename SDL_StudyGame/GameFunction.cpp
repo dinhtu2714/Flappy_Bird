@@ -20,9 +20,9 @@ GameFunction::GameFunction()
     p.setSrc(0, 0, 34, 24);
     p.setDes(100,256, 34, 24);
     //setPi_x
-    pi_x[1] = 330;
-    pi_x[2] = 490;
-    pi_x[3] = 678;
+    pi_x[1] = 360;
+    pi_x[2] = 530;
+    pi_x[3] = 690;
     //setPi_y
     pi_y[1] = -uni(rng);
     pi_y[2] = -uni(rng);
@@ -79,7 +79,7 @@ void GameFunction::UpdatePipe()
     {
         if (pi_x[1] <=-52)
         {
-            pi_x[1] = 465;
+            pi_x[1] = pipe_x_reset;
             pi_y[1] = (-1) * uni(rng);
         }
         pi1.setDes(pi_x[1], pi_y[1], 52, 320);
@@ -87,7 +87,7 @@ void GameFunction::UpdatePipe()
         
         if (pi_x[2] <= -52)
         {
-            pi_x[2] = 465;
+            pi_x[2] = pipe_x_reset;
             pi_y[2] = (-1) * uni(rng);
         }
         pi2.setDes(pi_x[2], pi_y[2], 52, 320);
@@ -95,7 +95,7 @@ void GameFunction::UpdatePipe()
         
         if (pi_x[3] <= -52)
         {
-            pi_x[3] = 465;
+            pi_x[3] = pipe_x_reset;
             pi_y[3] = (-1) * uni(rng);
         }
         pi3.setDes(pi_x[3], pi_y[3], 52, 320);

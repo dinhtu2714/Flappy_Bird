@@ -32,6 +32,7 @@ private:
     mt19937 rng{rd()};
     uniform_int_distribution<int> uni{1,290};
     
+    int pipe_x_reset = 438;
     int pi_y[5];
     int pi_x[5];
 public:

@@ -35,7 +35,6 @@ void Player::setJumpHeight()
 
 void Player::Jump()
 {
-    jumpHeight += gravity;
     Ypos += jumpHeight;
     setDes(100, Ypos, 34, 24);
 }

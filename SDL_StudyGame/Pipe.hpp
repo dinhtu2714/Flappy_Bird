@@ -8,7 +8,7 @@ class Pipe:public GameObject
 {
 private:
     SDL_Rect dest;
-    int Pipe_Blank = 425;
+    int Pipe_Blank = 430;
 public:
     void Render (SDL_Renderer* ren);
 };
