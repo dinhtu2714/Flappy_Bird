@@ -6,7 +6,7 @@
 #include "Background.hpp"
 #include "Pipe.hpp"
 #include <random>
-
+#include "CheckCollision.hpp"
 
 using namespace std;
 
@@ -35,15 +35,21 @@ private:
     int pipe_x_reset = 438;
     int pi_y[5];
     int pi_x[5];
+    
 public:
     GameFunction();
+
     bool getGameState();
+    static SDL_Rect getDesPi(int num);
+    static SDL_Rect getDesBird();
     void Initialize();
     void Event();
     void Render();
     void Clear();
     void UpdateFloor();
     void UpdatePipe();
+    void setDesForCheckCollison();
+    static SDL_Rect pipe1,pipe2,pipe3,player;
 };
 
 

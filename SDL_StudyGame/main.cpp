@@ -1,5 +1,10 @@
 #include "GameFunction.hpp"
-GameFunction* g= new GameFunction();
+#include "CheckCollision.hpp"
+
+CheckCollision* c = new CheckCollision();
+GameFunction* g = new GameFunction();
+
+
 
 int main(int argc, char* argv[])
 {
@@ -8,10 +13,19 @@ int main(int argc, char* argv[])
     g->Initialize();
     while (g->getGameState())
     {
+        
         g->Event();
+        g->setDesForCheckCollison();
+        if (c->check(1) || c->check(2) || c->check(3))
+        {
+            cout<<"Va Cham"<<endl;
+            break;
+        }
         g->Render();
         g->UpdateFloor();
         g->UpdatePipe();
+        
+        //Limiting FPS
         first = SDL_GetTicks();
         if (first - last <16.67)
         {

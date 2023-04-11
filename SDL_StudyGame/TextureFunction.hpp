@@ -9,7 +9,6 @@ class TextureFunction
 {
 public:
     static SDL_Texture* Texture(const char* filelocation, SDL_Renderer* ren);
-
 };
 
 #endif /* TextureFunction_hpp */

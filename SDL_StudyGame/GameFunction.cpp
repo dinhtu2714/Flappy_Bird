@@ -1,6 +1,12 @@
 
 #include "GameFunction.hpp"
 
+SDL_Rect GameFunction::pipe1 ;
+SDL_Rect GameFunction::pipe2 ;
+SDL_Rect GameFunction::pipe3 ;
+SDL_Rect GameFunction::player ;
+
+
 GameFunction::GameFunction()
 {
     window = NULL;
@@ -50,7 +56,7 @@ void GameFunction::Initialize()
         else
         {
             GameState = true;
-            cout << "Successed";
+            cout << "Successed" <<endl;
             b.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/background.png", renderer);
             floor = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/floor.png", renderer);
             pi1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
@@ -127,6 +133,13 @@ void GameFunction::Event()
         }
     }
 }
+void GameFunction::setDesForCheckCollison()
+{
+    GameFunction::pipe1 = pi1.getDest();
+    GameFunction::pipe2 = pi2.getDest();
+    GameFunction::pipe3 = pi3.getDest();
+    GameFunction::player = p.getDest();
+}
 
 void GameFunction::Render()
 {
@@ -145,4 +158,18 @@ void GameFunction::Clear()
 {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+}
+
+SDL_Rect GameFunction::getDesPi(int num)
+{
+    if (num == 1)
+        return pipe1;
+    if (num == 2)
+        return pipe2;
+    else
+    return pipe3;
+}
+SDL_Rect GameFunction::getDesBird()
+{
+    return player;
 }
