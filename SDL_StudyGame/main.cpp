@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
         g->setDesForCheckCollison();
         if (c->check(1) || c->check(2) || c->check(3))
         {
-            cout<<"Va Cham"<<endl;
+            cout<<"Collided"<<endl;
             break;
         }
         g->Render();

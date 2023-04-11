@@ -118,7 +118,7 @@ void GameFunction::Event()
     }
     if (e.type == SDL_KEYDOWN || e.type == SDL_MOUSEBUTTONDOWN)
     {
-        if (e.key.keysym.sym == SDLK_UP || e.button.button == SDL_BUTTON_LEFT)
+        if (e.button.button == SDL_BUTTON_LEFT)
         {
             Start = true;
             p.setJumpHeight();
