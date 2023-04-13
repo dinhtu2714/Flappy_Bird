@@ -7,11 +7,11 @@ The bird controlled by the player will automatically fly forward, and the player
 
 #HOW TO PLAY :
 
-Click the left mouse button to increase the flying height of the bird.
+Click the left mouse button or press the space key to increase the flying height of the bird.
 
 #GAMEFEATURES:
 
-During the flight of the bird, it will fall due to gravity. The player can increase the flying height of the bird by clicking the mouse. The height of the raising will be determined according to the time of pressing the mouse, so it is necessary to master a certain rhythm. The difficulty of the game is great, waiting for your challenge.
+During the flight of the bird, it will fall due to gravity. The player can increase the flying height of the bird by clicking the mouse or pressing the space key. The height of the raising will be determined according to the time of pressing the mouse(or pressing the space key), so it is necessary to master a certain rhythm. The difficulty of the game is great, waiting for your challenge.
 
 #REQUIRED :
 
