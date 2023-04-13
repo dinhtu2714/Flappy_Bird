@@ -28,9 +28,9 @@ void Player::Gravity()
     setDes(100, Ypos, 34, 24);
 }
 
-void Player::setJumpHeight()
+void Player::setJumpHeight(int num)
 {
-    jumpHeight = -3;
+    jumpHeight = num;
 }
 
 void Player::Jump()

@@ -13,7 +13,7 @@ private:
     SDL_Texture* Tex2;
     int animationTimer;
 public:
-    void setJumpHeight();
+    void setJumpHeight(int num);
     void Gravity();
     void Jump();
     void Render(SDL_Renderer* ren);

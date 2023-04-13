@@ -6,7 +6,6 @@ SDL_Rect GameFunction::pipe2 ;
 SDL_Rect GameFunction::pipe3 ;
 SDL_Rect GameFunction::player ;
 
-
 GameFunction::GameFunction()
 {
     window = NULL;
@@ -33,6 +32,8 @@ GameFunction::GameFunction()
     pi_y[1] = -uni(rng);
     pi_y[2] = -uni(rng);
     pi_y[3] = -uni(rng);
+    //setScore
+    score = 0;
 }
 bool GameFunction::getGameState()
 {
@@ -65,8 +66,11 @@ void GameFunction::Initialize()
             p.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird1.png", renderer);
             p.CreateTexture1("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird2.png", renderer);
             p.CreateTexture2("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird3.png", renderer);
+            flash = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/white.png", renderer);
         }
     }
+    if (TTF_Init() < 0)
+        cout<<"TTF init: "<<TTF_GetError()<<endl;
 }
 void GameFunction::UpdateFloor()
 {
@@ -116,12 +120,12 @@ void GameFunction::Event()
     {
         GameState = false;
     }
-    if (e.type == SDL_KEYDOWN || e.type == SDL_MOUSEBUTTONDOWN)
+    if (GameOver && (e.type == SDL_KEYDOWN || e.type == SDL_MOUSEBUTTONDOWN))
     {
-        if (e.button.button == SDL_BUTTON_LEFT)
+        if (e.button.button == SDL_BUTTON_LEFT || e.key.keysym.sym == SDLK_SPACE)
         {
             Start = true;
-            p.setJumpHeight();
+            p.setJumpHeight(-3);
             p.Jump();
         }
     }
@@ -132,6 +136,8 @@ void GameFunction::Event()
             p.Gravity();
         }
     }
+    if (CheckCollision::addScore(1) || CheckCollision::addScore(2) || CheckCollision::addScore(3))
+        score++;
 }
 void GameFunction::setDesForCheckCollison()
 {
@@ -150,7 +156,16 @@ void GameFunction::Render()
     pi3.Render(renderer);
     SDL_RenderCopy(renderer, floor, NULL, &desFloor);
     SDL_RenderCopy(renderer, floor, NULL, &desFloor2);
-    p.Render(renderer);
+    TextObject::Render(renderer, score);
+    if (GameOver)
+    {
+        p.Render(renderer);
+    }
+    else
+    {
+        SDL_RenderCopy(renderer, p.getTexture(), NULL, &p.getDes());
+        Flash();
+    }
     SDL_RenderPresent(renderer);
 }
 
@@ -158,6 +173,7 @@ void GameFunction::Clear()
 {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    TTF_Quit();
 }
 
 SDL_Rect GameFunction::getDesPi(int num)
@@ -173,3 +189,19 @@ SDL_Rect GameFunction::getDesBird()
 {
     return player;
 }
+
+void GameFunction::setState(bool state)
+{
+    Start = state;
+    GameOver = state;
+}
+void GameFunction::Flash()
+{
+    if (isFlash)
+    {
+        SDL_RenderCopy(renderer, flash, NULL, NULL);
+    }
+    SDL_Delay(50);
+    isFlash = false;
+}
+

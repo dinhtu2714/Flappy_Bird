@@ -1,9 +1,9 @@
-#include "GameFunction.hpp"
 #include "CheckCollision.hpp"
+#include "TextObject.hpp"
 
 CheckCollision* c = new CheckCollision();
 GameFunction* g = new GameFunction();
-
+TextObject* t = new TextObject();
 
 
 int main(int argc, char* argv[])
@@ -11,19 +11,23 @@ int main(int argc, char* argv[])
     double first;
     double last = 0;
     g->Initialize();
+    bool isGameOver = false;
     while (g->getGameState())
     {
-        
         g->Event();
         g->setDesForCheckCollison();
-        if (c->check(1) || c->check(2) || c->check(3))
+        if (!isGameOver && (c->check(1) || c->check(2) || c->check(3)))
         {
             cout<<"Collided"<<endl;
-            break;
+            isGameOver = true;
+            g->setState(false);
         }
         g->Render();
-        g->UpdateFloor();
-        g->UpdatePipe();
+        if (!isGameOver)
+        {
+            g->UpdateFloor();
+            g->UpdatePipe();
+        }
         
         //Limiting FPS
         first = SDL_GetTicks();

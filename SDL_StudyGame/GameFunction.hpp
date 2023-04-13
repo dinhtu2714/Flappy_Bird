@@ -7,6 +7,7 @@
 #include "Pipe.hpp"
 #include <random>
 #include "CheckCollision.hpp"
+#include "TextObject.hpp"
 
 using namespace std;
 
@@ -20,13 +21,15 @@ private:
     Pipe pi3;
     const int SCREEN_W = 288;
     const int SCREEN_H = 512;
-    bool GameState;
+    bool GameState, GameOver = true;
     bool Start = false;
+    bool isFlash = true;
     SDL_Event e;
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Rect desFloor, desFloor2;
     SDL_Texture* floor;
+    SDL_Texture* flash;
     //random des_pipes_y
     random_device rd;
     mt19937 rng{rd()};
@@ -36,9 +39,11 @@ private:
     int pi_y[5];
     int pi_x[5];
     
+    //Score
+    int score = 0;
+    
 public:
     GameFunction();
-
     bool getGameState();
     static SDL_Rect getDesPi(int num);
     static SDL_Rect getDesBird();
@@ -50,6 +55,8 @@ public:
     void UpdatePipe();
     void setDesForCheckCollison();
     static SDL_Rect pipe1,pipe2,pipe3,player;
+    void setState(bool state);
+    void Flash();
 };
 
 
