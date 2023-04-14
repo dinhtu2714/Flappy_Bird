@@ -3,7 +3,6 @@
 
 CheckCollision* c = new CheckCollision();
 GameFunction* g = new GameFunction();
-TextObject* t = new TextObject();
 
 
 int main(int argc, char* argv[])
