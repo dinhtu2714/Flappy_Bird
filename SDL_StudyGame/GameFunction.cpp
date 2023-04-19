@@ -34,8 +34,8 @@ GameFunction::GameFunction()
     pi_y[3] = -uni(rng);
     //setScore
     score = 0;
-    //setDesMenuGame
-    m.setDes(52, 90, 184, 267);
+    //
+    m.setDes(0, 0, 288, 512);
 }
 bool GameFunction::getGameState()
 {
@@ -61,7 +61,7 @@ void GameFunction::Initialize()
             GameState = true;
             cout << "Successed" <<endl;
             b.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/background.png", renderer);
-            m.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/gameplay.png", renderer);
+            m.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/gameplay_image.png", renderer);
             floor = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/floor.png", renderer);
             pi1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
             pi2.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
