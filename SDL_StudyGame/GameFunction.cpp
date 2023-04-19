@@ -34,6 +34,8 @@ GameFunction::GameFunction()
     pi_y[3] = -uni(rng);
     //setScore
     score = 0;
+    //setDesMenuGame
+    m.setDes(52, 90, 184, 267);
 }
 bool GameFunction::getGameState()
 {
@@ -59,6 +61,7 @@ void GameFunction::Initialize()
             GameState = true;
             cout << "Successed" <<endl;
             b.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/background.png", renderer);
+            m.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/gameplay.png", renderer);
             floor = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/floor.png", renderer);
             pi1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
             pi2.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
@@ -131,7 +134,7 @@ void GameFunction::Event()
     }
     else
     {
-        if (Start)
+        if (Start && GameOver)
         {
             p.Gravity();
         }
@@ -156,7 +159,10 @@ void GameFunction::Render()
     pi3.Render(renderer);
     SDL_RenderCopy(renderer, floor, NULL, &desFloor);
     SDL_RenderCopy(renderer, floor, NULL, &desFloor2);
-    TextObject::Render(renderer, score);
+    if (Start)
+        TextObject::Render(renderer, score);
+    else
+        m.Render(renderer);
     if (GameOver)
     {
         p.Render(renderer);
@@ -192,7 +198,6 @@ SDL_Rect GameFunction::getDesBird()
 
 void GameFunction::setState(bool state)
 {
-    Start = state;
     GameOver = state;
 }
 void GameFunction::Flash()

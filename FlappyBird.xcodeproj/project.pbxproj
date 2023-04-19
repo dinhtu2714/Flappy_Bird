@@ -13,6 +13,7 @@
 		AC720EBD29DF492C0072B813 /* TextureFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC720EBB29DF492C0072B813 /* TextureFunction.cpp */; };
 		AC76DD7129A7C4A300176D45 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC76DD7029A7C4A300176D45 /* SDL2_image.framework */; };
 		ACA9126129E1FAB200E1892C /* Pipe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACA9125F29E1FAB200E1892C /* Pipe.cpp */; };
+		ACAEE71F29EC171300D8356B /* MenuGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACAEE71D29EC171300D8356B /* MenuGame.cpp */; };
 		ACCBC44D29DF3F0900848EC2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACCBC44C29DF3F0900848EC2 /* main.cpp */; };
 		ACCBC45029DF3F2000848EC2 /* GameFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACCBC44E29DF3F2000848EC2 /* GameFunction.cpp */; };
 		ACD938E729E5DABD00E2F36A /* CheckCollision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACD938E529E5DABD00E2F36A /* CheckCollision.cpp */; };
@@ -45,6 +46,8 @@
 		AC76DD7029A7C4A300176D45 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 		ACA9125F29E1FAB200E1892C /* Pipe.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Pipe.cpp; sourceTree = "<group>"; };
 		ACA9126029E1FAB200E1892C /* Pipe.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Pipe.hpp; sourceTree = "<group>"; };
+		ACAEE71D29EC171300D8356B /* MenuGame.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MenuGame.cpp; sourceTree = "<group>"; };
+		ACAEE71E29EC171300D8356B /* MenuGame.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MenuGame.hpp; sourceTree = "<group>"; };
 		ACCBC44C29DF3F0900848EC2 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		ACCBC44E29DF3F2000848EC2 /* GameFunction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameFunction.cpp; sourceTree = "<group>"; };
 		ACCBC44F29DF3F2000848EC2 /* GameFunction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameFunction.hpp; sourceTree = "<group>"; };
@@ -110,6 +113,8 @@
 				ACD938E629E5DABD00E2F36A /* CheckCollision.hpp */,
 				ACD938E829E62A5A00E2F36A /* TextObject.cpp */,
 				ACD938E929E62A5A00E2F36A /* TextObject.hpp */,
+				ACAEE71D29EC171300D8356B /* MenuGame.cpp */,
+				ACAEE71E29EC171300D8356B /* MenuGame.hpp */,
 			);
 			path = SDL_StudyGame;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 				ACD938EA29E62A5A00E2F36A /* TextObject.cpp in Sources */,
 				AC720EBD29DF492C0072B813 /* TextureFunction.cpp in Sources */,
 				ACCBC44D29DF3F0900848EC2 /* main.cpp in Sources */,
+				ACAEE71F29EC171300D8356B /* MenuGame.cpp in Sources */,
 				AC05E8B029E0B45100F32DB3 /* Background.cpp in Sources */,
 				ACA9126129E1FAB200E1892C /* Pipe.cpp in Sources */,
 				ACD938E729E5DABD00E2F36A /* CheckCollision.cpp in Sources */,

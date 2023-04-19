@@ -8,6 +8,7 @@
 #include <random>
 #include "CheckCollision.hpp"
 #include "TextObject.hpp"
+#include "MenuGame.hpp"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ private:
     Pipe pi1;
     Pipe pi2;
     Pipe pi3;
+    MenuGame m;
     const int SCREEN_W = 288;
     const int SCREEN_H = 512;
     bool GameState, GameOver = true;
@@ -30,6 +32,7 @@ private:
     SDL_Rect desFloor, desFloor2;
     SDL_Texture* floor;
     SDL_Texture* flash;
+
     //random des_pipes_y
     random_device rd;
     mt19937 rng{rd()};

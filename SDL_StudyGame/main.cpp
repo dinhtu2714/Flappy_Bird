@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
             g->UpdatePipe();
         }
         
-        //Limiting FPS
+        //Limited 60FPS
         first = SDL_GetTicks();
         if (first - last <16.67)
         {

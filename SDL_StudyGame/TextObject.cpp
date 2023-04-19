@@ -18,7 +18,7 @@ void TextObject::Render(SDL_Renderer* ren, int score)
     texture = SDL_CreateTextureFromSurface(ren, surface);
     TTF_SizeText(font, s.c_str(), &src.w, &src.h);
     des.x = 140;
-    des.y = 20;
+    des.y = 30;
     des.w = src.w ;
     des.h = src.h ;
     src.x = 0;
