@@ -9,6 +9,7 @@
 #include "CheckCollision.hpp"
 #include "TextObject.hpp"
 #include "MenuGame.hpp"
+#include "GameOver.hpp"
 
 using namespace std;
 
@@ -21,6 +22,7 @@ private:
     Pipe pi2;
     Pipe pi3;
     MenuGame m;
+    GameOver g;
     const int SCREEN_W = 288;
     const int SCREEN_H = 512;
     bool GameState, GameOver = true;
@@ -32,7 +34,6 @@ private:
     SDL_Rect desFloor, desFloor2;
     SDL_Texture* floor;
     SDL_Texture* flash;
-
     //random des_pipes_y
     random_device rd;
     mt19937 rng{rd()};
@@ -53,6 +54,7 @@ public:
     void Initialize();
     void Event();
     void Render();
+    void RenderGameOver();
     void Clear();
     void UpdateFloor();
     void UpdatePipe();

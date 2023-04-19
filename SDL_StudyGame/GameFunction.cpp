@@ -62,6 +62,7 @@ void GameFunction::Initialize()
             cout << "Successed" <<endl;
             b.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/background.png", renderer);
             m.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/gameplay_image.png", renderer);
+            g.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/gameover.png", renderer);
             floor = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/floor.png", renderer);
             pi1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
             pi2.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
@@ -210,3 +211,10 @@ void GameFunction::Flash()
     isFlash = false;
 }
 
+void GameFunction::RenderGameOver()
+{
+    SDL_RenderClear(renderer);
+    b.Render(renderer);
+    g.Render(renderer);
+    SDL_RenderPresent(renderer);
+}

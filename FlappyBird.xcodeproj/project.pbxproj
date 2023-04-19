@@ -19,6 +19,7 @@
 		ACD938E729E5DABD00E2F36A /* CheckCollision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACD938E529E5DABD00E2F36A /* CheckCollision.cpp */; };
 		ACD938EA29E62A5A00E2F36A /* TextObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACD938E829E62A5A00E2F36A /* TextObject.cpp */; };
 		ACD938EC29E62D2A00E2F36A /* SDL2_ttf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACD938EB29E62D2A00E2F36A /* SDL2_ttf.framework */; };
+		ACE9ACAC29EFFFD90074C9AC /* GameOver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACE9ACAA29EFFFD90074C9AC /* GameOver.cpp */; };
 		ACF268B7299FC285007C3A8D /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF268B6299FC285007C3A8D /* SDL2.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,8 @@
 		ACD938E829E62A5A00E2F36A /* TextObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextObject.cpp; sourceTree = "<group>"; };
 		ACD938E929E62A5A00E2F36A /* TextObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextObject.hpp; sourceTree = "<group>"; };
 		ACD938EB29E62D2A00E2F36A /* SDL2_ttf.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_ttf.framework; path = ../../../../Library/Frameworks/SDL2_ttf.framework; sourceTree = "<group>"; };
+		ACE9ACAA29EFFFD90074C9AC /* GameOver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameOver.cpp; sourceTree = "<group>"; };
+		ACE9ACAB29EFFFD90074C9AC /* GameOver.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameOver.hpp; sourceTree = "<group>"; };
 		ACF268AB299FC26B007C3A8D /* SDL_StudyGame */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SDL_StudyGame; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACF268B6299FC285007C3A8D /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 		ACF268BA299FC2B3007C3A8D /* SDL_StudyGame.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SDL_StudyGame.entitlements; sourceTree = "<group>"; };
@@ -115,6 +118,8 @@
 				ACD938E929E62A5A00E2F36A /* TextObject.hpp */,
 				ACAEE71D29EC171300D8356B /* MenuGame.cpp */,
 				ACAEE71E29EC171300D8356B /* MenuGame.hpp */,
+				ACE9ACAA29EFFFD90074C9AC /* GameOver.cpp */,
+				ACE9ACAB29EFFFD90074C9AC /* GameOver.hpp */,
 			);
 			path = SDL_StudyGame;
 			sourceTree = "<group>";
@@ -189,6 +194,7 @@
 			files = (
 				AC2D8FE129E031DA008A4280 /* GameObject.cpp in Sources */,
 				ACD938EA29E62A5A00E2F36A /* TextObject.cpp in Sources */,
+				ACE9ACAC29EFFFD90074C9AC /* GameOver.cpp in Sources */,
 				AC720EBD29DF492C0072B813 /* TextureFunction.cpp in Sources */,
 				ACCBC44D29DF3F0900848EC2 /* main.cpp in Sources */,
 				ACAEE71F29EC171300D8356B /* MenuGame.cpp in Sources */,

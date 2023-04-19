@@ -10,6 +10,8 @@ int main(int argc, char* argv[])
     double first;
     double last = 0;
     bool isGameOver = false;
+    bool lastRen = true;
+    bool isFlash = true;
     g->Initialize();
     while (g->getGameState())
     {
@@ -21,11 +23,22 @@ int main(int argc, char* argv[])
             isGameOver = true;
             g->setState(false);
         }
-        g->Render();
+        if (lastRen)
+            g->Render();
         if (!isGameOver)
         {
             g->UpdateFloor();
             g->UpdatePipe();
+        }
+        else
+        {
+            if (isFlash)
+            {
+                SDL_Delay(100);
+                isFlash = false;
+            }
+            g->RenderGameOver();
+            lastRen = false;
         }
         
         //Limited 60FPS
