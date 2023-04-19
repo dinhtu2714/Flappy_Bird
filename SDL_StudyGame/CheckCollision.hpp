@@ -16,6 +16,7 @@ public:
     CheckCollision();
     bool check(int num);
     static bool addScore(int num);
+    bool runCheck();
 };
 
 #endif /* CheckCollision_hpp */

@@ -71,3 +71,10 @@ bool CheckCollision::addScore(int num)
     }
     return addState;
 }
+
+bool CheckCollision::runCheck()
+{
+    if (check(1) || check(2) || check(3))
+        return true;
+    return false;
+}

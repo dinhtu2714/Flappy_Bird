@@ -9,13 +9,13 @@ int main(int argc, char* argv[])
 {
     double first;
     double last = 0;
-    g->Initialize();
     bool isGameOver = false;
+    g->Initialize();
     while (g->getGameState())
     {
         g->Event();
         g->setDesForCheckCollison();
-        if (!isGameOver && (c->check(1) || c->check(2) || c->check(3)))
+        if (!isGameOver && c->runCheck())
         {
             cout<<"Collided"<<endl;
             isGameOver = true;
