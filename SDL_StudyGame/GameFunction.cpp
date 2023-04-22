@@ -36,6 +36,12 @@ GameFunction::GameFunction()
     score = 0;
     //
     m.setDes(0, 0, 288, 512);
+    m1.setDes(0, 0, 288, 512);
+    //
+    Start = false;
+    Start1 = false;
+    isFlash = true;
+    GameOver = true;
 }
 bool GameFunction::getGameState()
 {
@@ -62,6 +68,7 @@ void GameFunction::Initialize()
             cout << "Successed" <<endl;
             b.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/background.png", renderer);
             m.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/gameplay_image.png", renderer);
+            m1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/menustart.png", renderer);
             g.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/gameover.png", renderer);
             floor = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/floor.png", renderer);
             pi1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
@@ -124,7 +131,7 @@ void GameFunction::Event()
     {
         GameState = false;
     }
-    if (GameOver && (e.type == SDL_KEYDOWN || e.type == SDL_MOUSEBUTTONDOWN))
+    if (Start1 && GameOver && (e.type == SDL_KEYDOWN || e.type == SDL_MOUSEBUTTONDOWN))
     {
         if (e.button.button == SDL_BUTTON_LEFT || e.key.keysym.sym == SDLK_SPACE)
         {
@@ -140,6 +147,11 @@ void GameFunction::Event()
             p.Gravity();
         }
     }
+    if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT)
+    {
+        if ((e.button.x >= 95 && e.button.x <= 193) && (e.button.y >= 320 && e.button.y <= 377))
+            Start1 = true;
+    }
     if (CheckCollision::addScore(1) || CheckCollision::addScore(2) || CheckCollision::addScore(3))
         score++;
 }
@@ -154,13 +166,12 @@ void GameFunction::setDesForCheckCollison()
 void GameFunction::Render()
 {
     SDL_RenderClear(renderer);
+    
     b.Render(renderer);
     pi1.Render(renderer);
     pi2.Render(renderer);
     pi3.Render(renderer);
-    SDL_RenderCopy(renderer, floor, NULL, &desFloor);
-    SDL_RenderCopy(renderer, floor, NULL, &desFloor2);
-    if (Start)
+    if (Start && Start1)
         TextObject::Render(renderer, score);
     else
         m.Render(renderer);
@@ -173,6 +184,11 @@ void GameFunction::Render()
         SDL_RenderCopy(renderer, p.getTexture(), NULL, &p.getDes());
         Flash();
     }
+    if (!Start1)
+        m1.Render(renderer);
+    SDL_RenderCopy(renderer, floor, NULL, &desFloor);
+    SDL_RenderCopy(renderer, floor, NULL, &desFloor2);
+    
     SDL_RenderPresent(renderer);
 }
 
@@ -218,3 +234,4 @@ void GameFunction::RenderGameOver()
     g.Render(renderer);
     SDL_RenderPresent(renderer);
 }
+

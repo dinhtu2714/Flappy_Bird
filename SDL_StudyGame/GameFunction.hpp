@@ -22,12 +22,14 @@ private:
     Pipe pi2;
     Pipe pi3;
     MenuGame m;
+    MenuGame m1;
     GameOver g;
     const int SCREEN_W = 288;
     const int SCREEN_H = 512;
-    bool GameState, GameOver = true;
-    bool Start = false;
-    bool isFlash = true;
+    bool GameState, GameOver;
+    bool Start;
+    bool Start1;
+    bool isFlash;
     SDL_Event e;
     SDL_Window* window;
     SDL_Renderer* renderer;
@@ -44,7 +46,7 @@ private:
     int pi_x[5];
     
     //Score
-    int score = 0;
+    int score;
     
 public:
     GameFunction();
