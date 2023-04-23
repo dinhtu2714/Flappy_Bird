@@ -26,7 +26,7 @@ void TextObject::Render(SDL_Renderer* ren, int score)
     SDL_RenderCopy(ren, texture, &src, &des);
 }
 
-void TextObject::Render2(SDL_Renderer* ren, int score)
+void TextObject::Render2(SDL_Renderer* ren, int score, int bestScore)
 {
     color = {255,255,255};
     s = to_string(score);
@@ -41,18 +41,12 @@ void TextObject::Render2(SDL_Renderer* ren, int score)
     src.x = 0;
     src.y = 0;
     SDL_RenderCopy(ren, texture, &src, &des);
-}
-
-void TextObject::Render3(SDL_Renderer* ren, int score)
-{
-    color = {0,0,0};
-    s = to_string(score);
-    font = TTF_OpenFont("/Users/dinhtu/My Code/FlappyBirdGame/font/flappy-font.ttf", 24);
+    s = to_string(bestScore);
     surface = TTF_RenderText_Solid(font, s.c_str(), color);
     texture = SDL_CreateTextureFromSurface(ren, surface);
     TTF_SizeText(font, s.c_str(), &src.w, &src.h);
     des.x = 225;
-    des.y = 202;
+    des.y = 247;
     des.w = src.w ;
     des.h = src.h ;
     src.x = 0;

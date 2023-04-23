@@ -21,8 +21,7 @@ private:
     static string s;
 public:
     static void Render(SDL_Renderer* ren, int score);
-    static void Render2(SDL_Renderer* ren, int score);
-    static void Render3(SDL_Renderer* ren, int score);
+    static void Render2(SDL_Renderer* ren, int score, int bestScore);
 };
 
 

@@ -35,9 +35,10 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Rect desFloor, desFloor2;
-    SDL_Rect bird;
+    SDL_Rect bird,newScore_des;
     SDL_Texture* floor;
     SDL_Texture* flash;
+    SDL_Texture* newScore;
     //random des_pipes_y
     random_device rd;
     mt19937 rng{rd()};
@@ -48,8 +49,8 @@ private:
     int pi_x[5];
     
     //Score
-    int score;
-    
+    int score,bestScore;
+    bool newState;
 public:
     GameFunction();
     bool getGameState();

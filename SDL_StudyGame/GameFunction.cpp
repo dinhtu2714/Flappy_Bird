@@ -44,6 +44,12 @@ GameFunction::GameFunction()
     Start1 = false;
     isFlash = true;
     GameOver = true;
+    //
+    newScore_des.x = 172;
+    newScore_des.y = 230;
+    newScore_des.w = 31;
+    newScore_des.h = 13;
+    newState = false;
 }
 bool GameFunction::getGameState()
 {
@@ -73,6 +79,7 @@ void GameFunction::Initialize()
             m1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/menustart.png", renderer);
             m2.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/gameover_board.png", renderer);
             floor = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/floor.png", renderer);
+            newScore = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/new.png", renderer);
             //
             pi1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
             pi2.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
@@ -90,10 +97,15 @@ void GameFunction::Initialize()
     if (TTF_Init() < 0)
         cout<<"TTF init: "<<TTF_GetError()<<endl;
     ifstream file("/Users/dinhtu/My Code/FlappyBirdGame/data/BestScore.txt");
-        if (!file.is_open())
+    if (!file.is_open())
         {
-            cout << "Unable to open highscore file!" << endl;
+            cout << "Unable to open bestscore file!" << endl;
         }
+    else
+    {
+        file >> bestScore;
+        file.close();
+    }
 }
 void GameFunction::UpdateFloor()
 {
@@ -206,7 +218,24 @@ void GameFunction::Render()
         if (BirdFall())
             p.Gravity();
         m2.Render(renderer);
-        TextObject::Render2(renderer, score);
+        if (score > bestScore)
+        {
+            newState = true;
+            bestScore = score;
+            ofstream file("/Users/dinhtu/My Code/FlappyBirdGame/data/BestScore.txt");
+            if (!file.is_open())
+                {
+                    cout << "Unable to open bestscore file!" << endl;
+                }
+            else
+            {
+                file << bestScore;
+                file.close();
+            }
+        }
+        TextObject::Render2(renderer, score, bestScore);
+        if (newState)
+            SDL_RenderCopy(renderer, newScore, NULL, &newScore_des);
     }
     if (!Start1)
     {
@@ -216,7 +245,6 @@ void GameFunction::Render()
     }
     SDL_RenderCopy(renderer, floor, NULL, &desFloor);
     SDL_RenderCopy(renderer, floor, NULL, &desFloor2);
-    
     SDL_RenderPresent(renderer);
 }
 
@@ -258,7 +286,7 @@ void GameFunction::NewGame()
 {
     if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT)
     {
-        SDL_Delay(100);
+        SDL_Delay(200);
         if ((e.button.x >= 35 && e.button.x <= 35 + 99) && (e.button.y >= 321 && e.button.y <= 321 + 57) && !GameOver)
         {
             
@@ -285,6 +313,18 @@ void GameFunction::NewGame()
             Start1 = true;
             isFlash = true;
             GameOver = true;
+            newState = false;
+            //
+            ifstream file("/Users/dinhtu/My Code/FlappyBirdGame/data/BestScore.txt");
+            if (!file.is_open())
+                {
+                    cout << "Unable to open bestscore file!" << endl;
+                }
+            else
+            {
+                file >> bestScore;
+                file.close();
+            }
         }
         if ((e.button.x >= 154 && e.button.x <= 154 + 99) && (e.button.y >= 321 && e.button.y <= 321 + 57) && !GameOver)
         {
@@ -314,6 +354,18 @@ void GameFunction::NewGame()
             Start1 = false;
             isFlash = true;
             GameOver = true;
+            newState = false;
+            //
+            ifstream file("/Users/dinhtu/My Code/FlappyBirdGame/data/BestScore.txt");
+            if (!file.is_open())
+                {
+                    cout << "Unable to open bestscore file!" << endl;
+                }
+            else
+            {
+                file >> bestScore;
+                file.close();
+            }
         }
     }
 

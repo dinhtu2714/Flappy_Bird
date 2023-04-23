@@ -11,6 +11,7 @@
 		AC2D8FE129E031DA008A4280 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC2D8FDF29E031DA008A4280 /* GameObject.cpp */; };
 		AC2D8FE429E03505008A4280 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC2D8FE229E03505008A4280 /* Player.cpp */; };
 		AC720EBD29DF492C0072B813 /* TextureFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC720EBB29DF492C0072B813 /* TextureFunction.cpp */; };
+		AC7612EB29F5A33700D318BE /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7612EA29F5A33700D318BE /* SDL2_mixer.framework */; };
 		AC76DD7129A7C4A300176D45 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC76DD7029A7C4A300176D45 /* SDL2_image.framework */; };
 		ACA9126129E1FAB200E1892C /* Pipe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACA9125F29E1FAB200E1892C /* Pipe.cpp */; };
 		ACAEE71F29EC171300D8356B /* MenuGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACAEE71D29EC171300D8356B /* MenuGame.cpp */; };
@@ -43,6 +44,7 @@
 		AC2D8FE329E03505008A4280 /* Player.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Player.hpp; sourceTree = "<group>"; };
 		AC720EBB29DF492C0072B813 /* TextureFunction.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextureFunction.cpp; sourceTree = "<group>"; };
 		AC720EBC29DF492C0072B813 /* TextureFunction.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextureFunction.hpp; sourceTree = "<group>"; };
+		AC7612EA29F5A33700D318BE /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
 		AC76DD7029A7C4A300176D45 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../Library/Frameworks/SDL2_image.framework; sourceTree = "<group>"; };
 		ACA9125F29E1FAB200E1892C /* Pipe.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Pipe.cpp; sourceTree = "<group>"; };
 		ACA9126029E1FAB200E1892C /* Pipe.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Pipe.hpp; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACF268B7299FC285007C3A8D /* SDL2.framework in Frameworks */,
+				AC7612EB29F5A33700D318BE /* SDL2_mixer.framework in Frameworks */,
 				ACD938EC29E62D2A00E2F36A /* SDL2_ttf.framework in Frameworks */,
 				AC76DD7129A7C4A300176D45 /* SDL2_image.framework in Frameworks */,
 			);
@@ -122,6 +125,7 @@
 		ACF268B5299FC285007C3A8D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AC7612EA29F5A33700D318BE /* SDL2_mixer.framework */,
 				ACD938EB29E62D2A00E2F36A /* SDL2_ttf.framework */,
 				AC76DD7029A7C4A300176D45 /* SDL2_image.framework */,
 				ACF268B6299FC285007C3A8D /* SDL2.framework */,
