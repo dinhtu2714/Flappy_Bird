@@ -48,3 +48,7 @@ void Player::CreateTexture2(const char* address, SDL_Renderer* ren)
 {
     Tex2 = TextureFunction::Texture(address, ren);
 }
+void Player::setYposDefault()
+{
+    Ypos = 218;
+}

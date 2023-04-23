@@ -9,7 +9,7 @@
 #include "CheckCollision.hpp"
 #include "TextObject.hpp"
 #include "MenuGame.hpp"
-#include "GameOver.hpp"
+#include <fstream>
 
 using namespace std;
 
@@ -17,13 +17,14 @@ using namespace std;
 class GameFunction {
 private:
     Player p;
+    Player p1;
     Background b;
     Pipe pi1;
     Pipe pi2;
     Pipe pi3;
     MenuGame m;
     MenuGame m1;
-    GameOver g;
+    MenuGame m2;
     const int SCREEN_W = 288;
     const int SCREEN_H = 512;
     bool GameState, GameOver;
@@ -34,6 +35,7 @@ private:
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Rect desFloor, desFloor2;
+    SDL_Rect bird;
     SDL_Texture* floor;
     SDL_Texture* flash;
     //random des_pipes_y
@@ -56,7 +58,7 @@ public:
     void Initialize();
     void Event();
     void Render();
-    void RenderGameOver();
+    void NewGame();
     void Clear();
     void UpdateFloor();
     void UpdatePipe();
@@ -64,6 +66,8 @@ public:
     static SDL_Rect pipe1,pipe2,pipe3,player;
     void setState(bool state);
     void Flash();
+    bool BirdFall();
+    bool getGameOver();
 };
 
 

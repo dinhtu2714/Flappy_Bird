@@ -32,9 +32,9 @@ bool CheckCollision::check(int num)
     bottom_pipe.h = desFloor_y;
     
     //Check Top Pipe
-    if (bird.x < top_pipe.w - 2 && top_pipe.x + 2 < bird.w)
+    if (bird.x < top_pipe.w - 1 && top_pipe.x + 1 < bird.w)
     {
-        if (bird.y < top_pipe.h - 2 && top_pipe.y + 2 < bird.h)
+        if (bird.y < top_pipe.h - 1 && top_pipe.y + 1 < bird.h)
         {
             return true;
         }

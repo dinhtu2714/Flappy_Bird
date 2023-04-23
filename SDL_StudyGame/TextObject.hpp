@@ -6,6 +6,7 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <string>
+#include "GameObject.hpp"
 
 using namespace std;
 
@@ -20,6 +21,8 @@ private:
     static string s;
 public:
     static void Render(SDL_Renderer* ren, int score);
+    static void Render2(SDL_Renderer* ren, int score);
+    static void Render3(SDL_Renderer* ren, int score);
 };
 
 
