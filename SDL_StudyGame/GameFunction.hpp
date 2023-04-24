@@ -10,9 +10,10 @@
 #include "TextObject.hpp"
 #include "MenuGame.hpp"
 #include <fstream>
+#include <SDL2_mixer/SDL_mixer.h>
 
 using namespace std;
-
+    
 
 class GameFunction {
 private:
@@ -31,14 +32,21 @@ private:
     bool Start;
     bool Start1;
     bool isFlash;
+    bool newscoreSound;
+    bool MusicGameState;
+    bool MusicMenuState;
+    bool volumeState ;
     SDL_Event e;
     SDL_Window* window;
     SDL_Renderer* renderer;
     SDL_Rect desFloor, desFloor2;
     SDL_Rect bird,newScore_des;
+    SDL_Rect vol_button;
     SDL_Texture* floor;
     SDL_Texture* flash;
     SDL_Texture* newScore;
+    SDL_Texture* mute;
+    SDL_Texture* unmute;
     //random des_pipes_y
     random_device rd;
     mt19937 rng{rd()};
@@ -51,6 +59,12 @@ private:
     //Score
     int score,bestScore;
     bool newState;
+    //
+    Mix_Chunk* sound_effect[6];
+    Mix_Chunk* sound_transition;
+    Mix_Chunk* sound_menuGame;
+    Mix_Music* sound_background;
+    
 public:
     GameFunction();
     bool getGameState();

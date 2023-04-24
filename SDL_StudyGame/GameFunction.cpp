@@ -50,6 +50,15 @@ GameFunction::GameFunction()
     newScore_des.w = 31;
     newScore_des.h = 13;
     newState = false;
+    newscoreSound = true;
+    MusicGameState = true;
+    MusicMenuState = true;
+    volumeState = true;
+    //
+    vol_button.x = 240;
+    vol_button.y = 467;
+    vol_button.w = 28;
+    vol_button.h = 26;
 }
 bool GameFunction::getGameState()
 {
@@ -92,10 +101,14 @@ void GameFunction::Initialize()
             p1.CreateTexture1("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird2.png", renderer);
             p1.CreateTexture2("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird3.png", renderer);
             flash = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/white.png", renderer);
+            //
+            mute = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/mute.png", renderer);
+            unmute = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/volume.png", renderer);
         }
     }
     if (TTF_Init() < 0)
         cout<<"TTF init: "<<TTF_GetError()<<endl;
+
     ifstream file("/Users/dinhtu/My Code/FlappyBirdGame/data/BestScore.txt");
     if (!file.is_open())
         {
@@ -105,6 +118,26 @@ void GameFunction::Initialize()
     {
         file >> bestScore;
         file.close();
+    }
+    
+    if (Mix_OpenAudio(22050, MIX_DEFAULT_FORMAT, 2, 4096) < 0)
+        cout<<"MIX init: "<<Mix_GetError()<<endl;
+    else
+    {
+        sound_effect[0] = Mix_LoadWAV("/Users/dinhtu/My Code/FlappyBirdGame/sound/flap.wav");
+        sound_effect[1] = Mix_LoadWAV("/Users/dinhtu/My Code/FlappyBirdGame/sound/point.wav");
+        sound_effect[2] = Mix_LoadWAV("/Users/dinhtu/My Code/FlappyBirdGame/sound/hit.wav");
+        sound_effect[3] = Mix_LoadWAV("/Users/dinhtu/My Code/FlappyBirdGame/sound/die.wav");
+        sound_effect[4] = Mix_LoadWAV("/Users/dinhtu/My Code/FlappyBirdGame/sound/newScore.wav");
+        sound_effect[5] = Mix_LoadWAV("/Users/dinhtu/My Code/FlappyBirdGame/sound/clicked.wav");
+        sound_transition = Mix_LoadWAV("/Users/dinhtu/My Code/FlappyBirdGame/sound/swosh.wav");
+        sound_background = Mix_LoadMUS("/Users/dinhtu/My Code/FlappyBirdGame/sound/MusicinGame.mp3");
+        sound_menuGame = Mix_LoadWAV("/Users/dinhtu/My Code/FlappyBirdGame/sound/musicMenuStart.wav");
+        
+        if (sound_effect[0] == NULL || sound_effect[1] == NULL || sound_effect[2] == NULL || sound_effect[3] == NULL || sound_effect[5] == NULL || sound_transition == NULL || sound_background == NULL)
+            cout << "LoadWAV Error " << endl;
+        //set music volume
+        Mix_VolumeMusic(70);
     }
 }
 void GameFunction::UpdateFloor()
@@ -160,6 +193,7 @@ void GameFunction::Event()
         if (e.button.button == SDL_BUTTON_LEFT || e.key.keysym.sym == SDLK_SPACE)
         {
             Start = true;
+            Mix_PlayChannel(-1, sound_effect[0], 0);
             p.setJumpHeight(-3);
             p.Jump();
         }
@@ -176,13 +210,37 @@ void GameFunction::Event()
     {
         if ((e.button.x >= 35 && e.button.x <= 35 + 99) && (e.button.y >= 321 && e.button.y <= 321 + 57))
         {
+            Mix_PlayChannel(-1, sound_transition, 0);
             Start1 = true;
         }
         if ((e.button.x >= 154 && e.button.x <= 154 + 99) && (e.button.y >= 321 && e.button.y <= 321 + 57) && !Start1)
+        {
             GameState = false;
+        }
+        if ((e.button.x >= 240 && e.button.x <= 240 + 28) && (e.button.y >= 467 && e.button.y <= 467 + 26) && (!Start1))
+        {
+            if (volumeState)
+            {
+                Mix_Pause(1);
+                volumeState = false;
+                Mix_VolumeMusic(0);
+                Mix_Volume(-1, 0);
+            }
+            else
+            {
+                volumeState = true;
+                Mix_VolumeMusic(70);
+                Mix_Volume(-1, 128);
+                Mix_Resume(1);
+                Mix_PlayChannel(-1, sound_effect[5], 0);
+            }
+        }
     }
     if ((CheckCollision::addScore(1) || CheckCollision::addScore(2) || CheckCollision::addScore(3)) && (GameOver))
+    {
+        Mix_PlayChannel(-1, sound_effect[1], 0);
         score++;
+    }
 }
 void GameFunction::setDesForCheckCollison()
 {
@@ -204,6 +262,7 @@ void GameFunction::Render()
     {
         if (GameOver)
             TextObject::Render(renderer, score);
+        
     }
     else
         m.Render(renderer);
@@ -213,39 +272,81 @@ void GameFunction::Render()
     }
     else
     {
-        SDL_RenderCopyEx(renderer, p.getTexture(), NULL, &p.getDes(), 90, NULL, SDL_FLIP_NONE);
+        Mix_FadeOutMusic(1500);
         Flash();
+        if (isFlash)
+        {
+            Mix_PlayChannel(-1, sound_effect[2], 0);
+            SDL_Delay(350);
+            Mix_PlayChannel(-1, sound_effect[3], 0);
+            isFlash = false;
+        }
+        SDL_RenderCopyEx(renderer, p.getTexture(), NULL, &p.getDes(), 90, NULL, SDL_FLIP_NONE);
         if (BirdFall())
             p.Gravity();
-        m2.Render(renderer);
-        if (score > bestScore)
+        else
         {
-            newState = true;
-            bestScore = score;
-            ofstream file("/Users/dinhtu/My Code/FlappyBirdGame/data/BestScore.txt");
-            if (!file.is_open())
+            m2.Render(renderer);
+            if (score > bestScore)
+            {
+                newState = true;
+                bestScore = score;
+                ofstream file("/Users/dinhtu/My Code/FlappyBirdGame/data/BestScore.txt");
+                if (!file.is_open())
                 {
                     cout << "Unable to open bestscore file!" << endl;
                 }
-            else
+                else
+                {
+                    file << bestScore;
+                    file.close();
+                }
+            }
+            TextObject::Render2(renderer, score, bestScore);
+            if (newState)
             {
-                file << bestScore;
-                file.close();
+                if (newscoreSound)
+                {
+                    Mix_PlayChannel(-1, sound_effect[4], 0);
+                    newscoreSound = false;
+                }
+                SDL_RenderCopy(renderer, newScore, NULL, &newScore_des);
             }
         }
-        TextObject::Render2(renderer, score, bestScore);
-        if (newState)
-            SDL_RenderCopy(renderer, newScore, NULL, &newScore_des);
     }
     if (!Start1)
     {
         
         m1.Render(renderer);
         p1.Render(renderer);
+        if (MusicMenuState)
+        {
+            Mix_PlayChannel(1, sound_menuGame, -1);
+            MusicMenuState = false;
+        }
     }
     SDL_RenderCopy(renderer, floor, NULL, &desFloor);
     SDL_RenderCopy(renderer, floor, NULL, &desFloor2);
+    
+    if (!Start1 || !GameOver)
+    {
+        if (volumeState)
+        {
+            SDL_RenderCopy(renderer, unmute, NULL, &vol_button);
+        }
+        else
+        {
+            SDL_RenderCopy(renderer, mute, NULL, &vol_button);
+        }
+    }
     SDL_RenderPresent(renderer);
+    if (Start1 && MusicGameState)
+    {
+        Mix_FadeInMusic(sound_background, -1, 2000);
+        Mix_HaltChannel(1);
+        //Mix_PlayMusic(sound_background, -1);
+        MusicGameState = false;
+    }
 }
 
 void GameFunction::Clear()
@@ -253,6 +354,7 @@ void GameFunction::Clear()
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     TTF_Quit();
+    Mix_CloseAudio();
 }
 
 SDL_Rect GameFunction::getDesPi(int num)
@@ -279,7 +381,7 @@ void GameFunction::Flash()
     {
         SDL_RenderCopy(renderer, flash, NULL, NULL);
     }
-    isFlash = false;
+    //isFlash = false;
 }
 
 void GameFunction::NewGame()
@@ -287,9 +389,25 @@ void GameFunction::NewGame()
     if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT)
     {
         SDL_Delay(200);
+        if ((e.button.x >= 240 && e.button.x <= 240 + 28) && (e.button.y >= 467 && e.button.y <= 467 + 26) && (!GameOver))
+        {
+            if (volumeState)
+            {
+                volumeState = false;
+                Mix_VolumeMusic(0);
+                Mix_Volume(-1, 0);
+            }
+            else
+            {
+                volumeState = true;
+                Mix_VolumeMusic(70);
+                Mix_Volume(-1, 128);
+                Mix_PlayChannel(-1, sound_effect[5], 0);
+            }
+        }
         if ((e.button.x >= 35 && e.button.x <= 35 + 99) && (e.button.y >= 321 && e.button.y <= 321 + 57) && !GameOver)
         {
-            
+            Mix_PlayChannel(-1, sound_transition, 0);
             p.setDes(100, 218, 34, 24);
             p.setYposDefault();
             //setPi_x
@@ -314,6 +432,9 @@ void GameFunction::NewGame()
             isFlash = true;
             GameOver = true;
             newState = false;
+            newscoreSound = true;
+            MusicGameState = true;
+            MusicMenuState = true;
             //
             ifstream file("/Users/dinhtu/My Code/FlappyBirdGame/data/BestScore.txt");
             if (!file.is_open())
@@ -328,7 +449,7 @@ void GameFunction::NewGame()
         }
         if ((e.button.x >= 154 && e.button.x <= 154 + 99) && (e.button.y >= 321 && e.button.y <= 321 + 57) && !GameOver)
         {
-
+            Mix_PlayChannel(-1, sound_transition, 0);
             //setPlayer
             
             p.setDes(100, 218, 34, 24);
@@ -355,6 +476,9 @@ void GameFunction::NewGame()
             isFlash = true;
             GameOver = true;
             newState = false;
+            newscoreSound = true;
+            MusicGameState = true;
+            MusicMenuState = true;
             //
             ifstream file("/Users/dinhtu/My Code/FlappyBirdGame/data/BestScore.txt");
             if (!file.is_open())
