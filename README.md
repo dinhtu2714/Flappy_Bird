@@ -1,6 +1,6 @@
----------------------------------Flappy Bird------------------------------------------------
+#                                                   FLAPPY BIRD
 
-# GAME DESCRIPTION
+## GAME DESCRIPTION
 
 'Flappy Bird' is a casual game in which the player controls a cute bird through obstacles after obstacles.
 The bird controlled by the player will automatically fly forward, and the player can control the height of the bird's flight. After the bird flies over the obstacle, it will add points, but it cannot touch the obstacle or the ground. Once it touches the obstacle or the ground, the game will fail.
