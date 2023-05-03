@@ -131,13 +131,13 @@ void GameFunction::Initialize()
         sound_effect[4] = Mix_LoadWAV("/Users/dinhtu/My Code/FlappyBirdGame/sound/newScore.wav");
         sound_effect[5] = Mix_LoadWAV("/Users/dinhtu/My Code/FlappyBirdGame/sound/clicked.wav");
         sound_transition = Mix_LoadWAV("/Users/dinhtu/My Code/FlappyBirdGame/sound/swosh.wav");
-        sound_background = Mix_LoadMUS("/Users/dinhtu/My Code/FlappyBirdGame/sound/MusicinGame.mp3");
         sound_menuGame = Mix_LoadWAV("/Users/dinhtu/My Code/FlappyBirdGame/sound/musicMenuStart.wav");
+        sound_background = Mix_LoadMUS("/Users/dinhtu/My Code/FlappyBirdGame/sound/MusicinGame.mp3");
         
         if (sound_effect[0] == NULL || sound_effect[1] == NULL || sound_effect[2] == NULL || sound_effect[3] == NULL || sound_effect[5] == NULL || sound_transition == NULL || sound_background == NULL)
             cout << "LoadWAV Error " << endl;
         //set music volume
-        Mix_VolumeMusic(70);
+        Mix_VolumeMusic(80);
     }
 }
 void GameFunction::UpdateFloor()
@@ -229,7 +229,7 @@ void GameFunction::Event()
             else
             {
                 volumeState = true;
-                Mix_VolumeMusic(70);
+                Mix_VolumeMusic(80);
                 Mix_Volume(-1, 128);
                 Mix_Resume(1);
                 Mix_PlayChannel(-1, sound_effect[5], 0);
@@ -277,7 +277,7 @@ void GameFunction::Render()
         if (isFlash)
         {
             Mix_PlayChannel(-1, sound_effect[2], 0);
-            SDL_Delay(350);
+            //SDL_Delay(350);
             Mix_PlayChannel(-1, sound_effect[3], 0);
             isFlash = false;
         }
@@ -380,6 +380,7 @@ void GameFunction::Flash()
     if (isFlash)
     {
         SDL_RenderCopy(renderer, flash, NULL, NULL);
+        SDL_Delay(70);
     }
     //isFlash = false;
 }
@@ -400,7 +401,7 @@ void GameFunction::NewGame()
             else
             {
                 volumeState = true;
-                Mix_VolumeMusic(70);
+                Mix_VolumeMusic(80);
                 Mix_Volume(-1, 128);
                 Mix_PlayChannel(-1, sound_effect[5], 0);
             }
