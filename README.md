@@ -1,4 +1,4 @@
-                                                          FLAPPY BIRD
+                                                     FLAPPY BIRD
 
 ## DESCRIPTION
 
