@@ -17,20 +17,22 @@ using namespace std;
 
 class GameFunction {
 private:
-    Player p;
-    Player p1;
+    Player p[4];  //ingame
+    Player p1[4]; //inmenu
     Background b;
     Pipe pi1;
     Pipe pi2;
     Pipe pi3;
-    MenuGame m;
-    MenuGame m1;
-    MenuGame m2;
+    MenuGame m;  //GamePlay
+    MenuGame m1; //MenuStart
+    MenuGame m2; //GameOver_Board
+    MenuGame button_left;
+    MenuGame button_right;
     const int SCREEN_W = 288;
     const int SCREEN_H = 512;
     bool GameState, GameOver;
-    bool Start;
-    bool Start1;
+    bool Start;  //play
+    bool Start1; //menu
     bool isFlash;
     bool newscoreSound;
     bool MusicGameState;
@@ -42,11 +44,13 @@ private:
     SDL_Rect desFloor, desFloor2;
     SDL_Rect bird,newScore_des;
     SDL_Rect vol_button;
+    SDL_Rect medalDes;
     SDL_Texture* floor;
     SDL_Texture* flash;
     SDL_Texture* newScore;
     SDL_Texture* mute;
     SDL_Texture* unmute;
+    //SDL_Texture* button;
     //random des_pipes_y
     random_device rd;
     mt19937 rng{rd()};
@@ -64,7 +68,8 @@ private:
     Mix_Chunk* sound_transition;
     Mix_Chunk* sound_menuGame;
     Mix_Music* sound_background;
-    
+    //
+    int num_bird;
 public:
     GameFunction();
     bool getGameState();

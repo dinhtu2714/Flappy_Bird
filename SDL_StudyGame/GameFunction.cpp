@@ -23,8 +23,17 @@ GameFunction::GameFunction()
     desFloor2.h = 112;
     //setPlayer
     //p.setSrc(0, 0, 34, 24);
-    p.setDes(100, 218, 34, 24);
-    p1.setDes(128, 218, 34, 24);
+    p[1].setDes(100, 218, 34, 24);
+    p[2].setDes(100, 218, 34, 24);
+    p[3].setDes(100, 218, 34, 24);
+    p1[1].setDes(128, 218, 34, 24);
+    p1[2].setDes(128, 218, 34, 24);
+    p1[3].setDes(128, 218, 34, 24);
+    
+    num_bird = 1;
+    //button
+    button_left.setDes(101, 222, 13, 16);
+    button_right.setDes(175, 222, 13, 16);
     //setPi_x
     pi_x[1] = 360;
     pi_x[2] = 530;
@@ -59,6 +68,11 @@ GameFunction::GameFunction()
     vol_button.y = 467;
     vol_button.w = 28;
     vol_button.h = 26;
+    //
+    medalDes.x = 57;
+    medalDes.y = 224;
+    medalDes.w = 34;
+    medalDes.h = 24;
 }
 bool GameFunction::getGameState()
 {
@@ -89,17 +103,34 @@ void GameFunction::Initialize()
             m2.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/gameover_board.png", renderer);
             floor = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/floor.png", renderer);
             newScore = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/new.png", renderer);
+            button_left.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/left.png", renderer);
+            button_right.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/right.png", renderer);
             //
             pi1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
             pi2.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
             pi3.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
             //
-            p.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird1.png", renderer);
-            p.CreateTexture1("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird2.png", renderer);
-            p.CreateTexture2("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird3.png", renderer);
-            p1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird1.png", renderer);
-            p1.CreateTexture1("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird2.png", renderer);
-            p1.CreateTexture2("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird3.png", renderer);
+            p[3].CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/bluebird1.png", renderer);
+            p[3].CreateTexture1("/Users/dinhtu/My Code/FlappyBirdGame/image/bluebird2.png", renderer);
+            p[3].CreateTexture2("/Users/dinhtu/My Code/FlappyBirdGame/image/bluebird3.png", renderer);
+            p1[3].CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/bluebird1.png", renderer);
+            p1[3].CreateTexture1("/Users/dinhtu/My Code/FlappyBirdGame/image/bluebird2.png", renderer);
+            p1[3].CreateTexture2("/Users/dinhtu/My Code/FlappyBirdGame/image/bluebird3.png", renderer);
+            //
+            p[2].CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/redbird1.png", renderer);
+            p[2].CreateTexture1("/Users/dinhtu/My Code/FlappyBirdGame/image/redbird2.png", renderer);
+            p[2].CreateTexture2("/Users/dinhtu/My Code/FlappyBirdGame/image/redbird3.png", renderer);
+            p1[2].CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/redbird1.png", renderer);
+            p1[2].CreateTexture1("/Users/dinhtu/My Code/FlappyBirdGame/image/redbird2.png", renderer);
+            p1[2].CreateTexture2("/Users/dinhtu/My Code/FlappyBirdGame/image/redbird3.png", renderer);
+            //
+            p[1].CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird1.png", renderer);
+            p[1].CreateTexture1("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird2.png", renderer);
+            p[1].CreateTexture2("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird3.png", renderer);
+            p1[1].CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird1.png", renderer);
+            p1[1].CreateTexture1("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird2.png", renderer);
+            p1[1].CreateTexture2("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird3.png", renderer);
+            //
             flash = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/white.png", renderer);
             //
             mute = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/mute.png", renderer);
@@ -194,20 +225,36 @@ void GameFunction::Event()
         {
             Start = true;
             Mix_PlayChannel(-1, sound_effect[0], 0);
-            p.setJumpHeight(-3);
-            p.Jump();
+            p[num_bird].setJumpHeight(-3);
+            p[num_bird].Jump();
         }
     }
     else
     {
         if (Start && GameOver && Start1)
         {
-            p.Gravity();
+            p[num_bird].Gravity();
         }
     }
     
     if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT && !Start && !Start1)
     {
+        if ((e.button.x >= 101 && e.button.x <= 101 + 13) && (e.button.y >= 222 && e.button.y <= 222 + 16))
+        {
+            Mix_PlayChannel(-1, sound_effect[5], 0);
+            if (num_bird > 1)
+                num_bird--;
+            else
+                num_bird = 3;
+        }
+        if ((e.button.x >= 175 && e.button.x <= 175 + 13) && (e.button.y >= 222 && e.button.y <= 222 + 16))
+        {
+            Mix_PlayChannel(-1, sound_effect[5], 0);
+            if (num_bird < 3)
+                num_bird++;
+            else
+                num_bird = 1;
+        }
         if ((e.button.x >= 35 && e.button.x <= 35 + 99) && (e.button.y >= 321 && e.button.y <= 321 + 57))
         {
             Mix_PlayChannel(-1, sound_transition, 0);
@@ -247,7 +294,7 @@ void GameFunction::setDesForCheckCollison()
     GameFunction::pipe1 = pi1.getDest();
     GameFunction::pipe2 = pi2.getDest();
     GameFunction::pipe3 = pi3.getDest();
-    GameFunction::player = p.getDest();
+    GameFunction::player = p[num_bird].getDest();
 }
 
 void GameFunction::Render()
@@ -268,7 +315,7 @@ void GameFunction::Render()
         m.Render(renderer);
     if (GameOver)
     {
-        p.Render(renderer);
+        p[num_bird].Render(renderer);
     }
     else
     {
@@ -281,12 +328,13 @@ void GameFunction::Render()
             Mix_PlayChannel(-1, sound_effect[3], 0);
             isFlash = false;
         }
-        SDL_RenderCopyEx(renderer, p.getTexture(), NULL, &p.getDes(), 90, NULL, SDL_FLIP_NONE);
+        SDL_RenderCopyEx(renderer, p[num_bird].getTexture(), NULL, &p[num_bird].getDes(), 90, NULL, SDL_FLIP_NONE);
         if (BirdFall())
-            p.Gravity();
+            p[num_bird].Gravity();
         else
         {
             m2.Render(renderer);
+            SDL_RenderCopy(renderer, p[num_bird].getTexture(), NULL, &medalDes);
             if (score > bestScore)
             {
                 newState = true;
@@ -313,21 +361,23 @@ void GameFunction::Render()
                 SDL_RenderCopy(renderer, newScore, NULL, &newScore_des);
             }
         }
+        
     }
     if (!Start1)
     {
         
         m1.Render(renderer);
-        p1.Render(renderer);
+        p1[num_bird].Render(renderer);
         if (MusicMenuState)
         {
             Mix_PlayChannel(1, sound_menuGame, -1);
             MusicMenuState = false;
         }
+        button_left.Render(renderer);
+        button_right.Render(renderer);
     }
-    SDL_RenderCopy(renderer, floor, NULL, &desFloor);
-    SDL_RenderCopy(renderer, floor, NULL, &desFloor2);
-    
+        SDL_RenderCopy(renderer, floor, NULL, &desFloor);
+        SDL_RenderCopy(renderer, floor, NULL, &desFloor2);
     if (!Start1 || !GameOver)
     {
         if (volumeState)
@@ -339,6 +389,18 @@ void GameFunction::Render()
             SDL_RenderCopy(renderer, mute, NULL, &vol_button);
         }
     }
+    
+//    if (!Start1 || !GameOver)
+//    {
+//        if (volumeState)
+//        {
+//            SDL_RenderCopy(renderer, unmute, NULL, &vol_button);
+//        }
+//        else
+//        {
+//            SDL_RenderCopy(renderer, mute, NULL, &vol_button);
+//        }
+//    }
     SDL_RenderPresent(renderer);
     if (Start1 && MusicGameState)
     {
@@ -409,8 +471,8 @@ void GameFunction::NewGame()
         if ((e.button.x >= 35 && e.button.x <= 35 + 99) && (e.button.y >= 321 && e.button.y <= 321 + 57) && !GameOver)
         {
             Mix_PlayChannel(-1, sound_transition, 0);
-            p.setDes(100, 218, 34, 24);
-            p.setYposDefault();
+            p[num_bird].setDes(100, 218, 34, 24);
+            p[num_bird].setYposDefault();
             //setPi_x
             pi_x[1] = 360;
             pi_x[2] = 530;
@@ -453,8 +515,8 @@ void GameFunction::NewGame()
             Mix_PlayChannel(-1, sound_transition, 0);
             //setPlayer
             
-            p.setDes(100, 218, 34, 24);
-            p.setYposDefault();
+            p[num_bird].setDes(100, 218, 34, 24);
+            p[num_bird].setYposDefault();
             //setPi_x
             pi_x[1] = 360;
             pi_x[2] = 530;
@@ -498,7 +560,7 @@ void GameFunction::NewGame()
 
 bool GameFunction::BirdFall()
 {
-    bird = p.getDest();
+    bird = p[num_bird].getDest();
     if (bird.y >= 407)
         return false;
     else
