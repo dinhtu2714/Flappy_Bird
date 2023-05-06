@@ -26,10 +26,11 @@ GameFunction::GameFunction()
     p[1].setDes(100, 218, 34, 24);
     p[2].setDes(100, 218, 34, 24);
     p[3].setDes(100, 218, 34, 24);
+    p[4].setDes(100, 218, 34, 24);
     p1[1].setDes(128, 218, 34, 24);
     p1[2].setDes(128, 218, 34, 24);
     p1[3].setDes(128, 218, 34, 24);
-    
+    p1[4].setDes(128, 218, 34, 24);
     num_bird = 1;
     //button
     button_left.setDes(101, 222, 13, 16);
@@ -69,10 +70,10 @@ GameFunction::GameFunction()
     vol_button.w = 28;
     vol_button.h = 26;
     //
-    medalDes.x = 57;
-    medalDes.y = 224;
-    medalDes.w = 34;
-    medalDes.h = 24;
+    medalDes.x = 50;
+    medalDes.y = 212;
+    medalDes.w = 50;
+    medalDes.h = 50;
 }
 bool GameFunction::getGameState()
 {
@@ -110,6 +111,13 @@ void GameFunction::Initialize()
             pi2.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
             pi3.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/pipe-green.png", renderer);
             //
+            p[4].CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/greenbird1.png", renderer);
+            p[4].CreateTexture1("/Users/dinhtu/My Code/FlappyBirdGame/image/greenbird2.png", renderer);
+            p[4].CreateTexture2("/Users/dinhtu/My Code/FlappyBirdGame/image/greenbird3.png", renderer);
+            p1[4].CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/greenbird1.png", renderer);
+            p1[4].CreateTexture1("/Users/dinhtu/My Code/FlappyBirdGame/image/greenbird2.png", renderer);
+            p1[4].CreateTexture2("/Users/dinhtu/My Code/FlappyBirdGame/image/greenbird3.png", renderer);
+            //
             p[3].CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/bluebird1.png", renderer);
             p[3].CreateTexture1("/Users/dinhtu/My Code/FlappyBirdGame/image/bluebird2.png", renderer);
             p[3].CreateTexture2("/Users/dinhtu/My Code/FlappyBirdGame/image/bluebird3.png", renderer);
@@ -130,6 +138,11 @@ void GameFunction::Initialize()
             p1[1].CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird1.png", renderer);
             p1[1].CreateTexture1("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird2.png", renderer);
             p1[1].CreateTexture2("/Users/dinhtu/My Code/FlappyBirdGame/image/yellowbird3.png", renderer);
+            //
+            medal[1] = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/bronze_medal.png", renderer);
+            medal[2] = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/silver_medal.png", renderer);
+            medal[3] = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/gold_medal.png", renderer);
+            medal[4] = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/platinum_medal.png", renderer);
             //
             flash = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/white.png", renderer);
             //
@@ -245,12 +258,12 @@ void GameFunction::Event()
             if (num_bird > 1)
                 num_bird--;
             else
-                num_bird = 3;
+                num_bird = 4;
         }
         if ((e.button.x >= 175 && e.button.x <= 175 + 13) && (e.button.y >= 222 && e.button.y <= 222 + 16))
         {
             Mix_PlayChannel(-1, sound_effect[5], 0);
-            if (num_bird < 3)
+            if (num_bird < 4)
                 num_bird++;
             else
                 num_bird = 1;
@@ -334,7 +347,21 @@ void GameFunction::Render()
         else
         {
             m2.Render(renderer);
-            SDL_RenderCopy(renderer, p[num_bird].getTexture(), NULL, &medalDes);
+            //SDL_RenderCopy(renderer, p[num_bird].getTexture(), NULL, &medalDes);
+            if (score >= 40)
+                SDL_RenderCopy(renderer, medal[4], NULL, &medalDes);
+            else if (score >= 30)
+            {
+                SDL_RenderCopy(renderer, medal[3], NULL, &medalDes);
+            }
+            else if (score >= 20)
+            {
+                SDL_RenderCopy(renderer, medal[2], NULL, &medalDes);
+            }
+            else if (score >= 10)
+            {
+                SDL_RenderCopy(renderer, medal[1], NULL, &medalDes);
+            }
             if (score > bestScore)
             {
                 newState = true;

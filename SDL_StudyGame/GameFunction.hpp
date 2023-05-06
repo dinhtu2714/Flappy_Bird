@@ -17,8 +17,8 @@ using namespace std;
 
 class GameFunction {
 private:
-    Player p[4];  //ingame
-    Player p1[4]; //inmenu
+    Player p[5];  //ingame
+    Player p1[5]; //inmenu
     Background b;
     Pipe pi1;
     Pipe pi2;
@@ -50,6 +50,7 @@ private:
     SDL_Texture* newScore;
     SDL_Texture* mute;
     SDL_Texture* unmute;
+    SDL_Texture* medal[5];
     //SDL_Texture* button;
     //random des_pipes_y
     random_device rd;
