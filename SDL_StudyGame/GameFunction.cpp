@@ -347,7 +347,7 @@ void GameFunction::Render()
         else
         {
             m2.Render(renderer);
-            //SDL_RenderCopy(renderer, p[num_bird].getTexture(), NULL, &medalDes);
+            //medal
             if (score >= 40)
                 SDL_RenderCopy(renderer, medal[4], NULL, &medalDes);
             else if (score >= 30)
@@ -362,6 +362,7 @@ void GameFunction::Render()
             {
                 SDL_RenderCopy(renderer, medal[1], NULL, &medalDes);
             }
+            //highscore
             if (score > bestScore)
             {
                 newState = true;
@@ -377,6 +378,7 @@ void GameFunction::Render()
                     file.close();
                 }
             }
+            //renderScore
             TextObject::Render2(renderer, score, bestScore);
             if (newState)
             {
