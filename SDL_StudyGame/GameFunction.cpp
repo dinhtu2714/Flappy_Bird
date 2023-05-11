@@ -51,7 +51,7 @@ GameFunction::GameFunction()
     m2.setDes(0, 0, 288, 512);
     //
     Start = false;
-    Start1 = false;
+    Menu_State= false;
     isFlash = true;
     GameOver = true;
     //
@@ -74,6 +74,10 @@ GameFunction::GameFunction()
     medalDes.y = 212;
     medalDes.w = 50;
     medalDes.h = 50;
+    //
+    moveUp[1] = true;
+    moveUp[2] = true;
+    moveUp[3] = true;
 }
 bool GameFunction::getGameState()
 {
@@ -98,9 +102,21 @@ void GameFunction::Initialize()
         {
             GameState = true;
             cout << "Successed" <<endl;
-            b.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/background.png", renderer);
+            //set time
+            now = time(0);
+            ltm = localtime(&now);
+            if (ltm->tm_hour >= 18 || ltm->tm_hour <= 5)
+            {
+                b.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/background-night.png", renderer);
+                m1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/menustart-night.png", renderer);
+            }
+            else
+            {
+                b.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/background-day.png", renderer);
+                m1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/menustart-day.png", renderer);
+            }
+            
             m.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/gameplay.png", renderer);
-            m1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/menustart.png", renderer);
             m2.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/gameover_board.png", renderer);
             floor = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/floor.png", renderer);
             newScore = TextureFunction::Texture("/Users/dinhtu/My Code/FlappyBirdGame/image/new.png", renderer);
@@ -203,7 +219,10 @@ void GameFunction::UpdatePipe()
         {
             pi_x[1] = pipe_x_reset;
             pi_y[1] = (-1) * uni(rng);
+            temporary[1] = pi_y[1];
+            max_des_y[1] = max(-290 , temporary[1] - 65);
         }
+        movingPipe(1);
         pi1.setDes(pi_x[1], pi_y[1], 52, 320);
         pi_x[1] -=1;
         
@@ -211,7 +230,11 @@ void GameFunction::UpdatePipe()
         {
             pi_x[2] = pipe_x_reset;
             pi_y[2] = (-1) * uni(rng);
+            temporary[2] = pi_y[2];
+            max_des_y[2] = max(-290 , temporary[2] - 65);
         }
+        if (score >= 21)
+            movingPipe(2);
         pi2.setDes(pi_x[2], pi_y[2], 52, 320);
         pi_x[2] -=1;
         
@@ -219,9 +242,13 @@ void GameFunction::UpdatePipe()
         {
             pi_x[3] = pipe_x_reset;
             pi_y[3] = (-1) * uni(rng);
+            temporary[3] = pi_y[3];
+            max_des_y[3] = max(-290 , temporary[3] - 65);
         }
+        movingPipe(3);
         pi3.setDes(pi_x[3], pi_y[3], 52, 320);
         pi_x[3] -=1;
+             
     }
 }
 
@@ -232,7 +259,7 @@ void GameFunction::Event()
     {
         GameState = false;
     }
-    if (Start1 && GameOver && (e.type == SDL_KEYDOWN || e.type == SDL_MOUSEBUTTONDOWN))
+    if (Menu_State&& GameOver && (e.type == SDL_KEYDOWN || e.type == SDL_MOUSEBUTTONDOWN))
     {
         if (e.button.button == SDL_BUTTON_LEFT || e.key.keysym.sym == SDLK_SPACE)
         {
@@ -244,13 +271,13 @@ void GameFunction::Event()
     }
     else
     {
-        if (Start && GameOver && Start1)
+        if (Start && GameOver && Menu_State)
         {
             p[num_bird].Gravity();
         }
     }
     
-    if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT && !Start && !Start1)
+    if (e.type == SDL_MOUSEBUTTONDOWN && e.button.button == SDL_BUTTON_LEFT && !Start && !Menu_State)
     {
         if ((e.button.x >= 101 && e.button.x <= 101 + 13) && (e.button.y >= 222 && e.button.y <= 222 + 16))
         {
@@ -271,13 +298,13 @@ void GameFunction::Event()
         if ((e.button.x >= 35 && e.button.x <= 35 + 99) && (e.button.y >= 321 && e.button.y <= 321 + 57))
         {
             Mix_PlayChannel(-1, sound_transition, 0);
-            Start1 = true;
+            Menu_State= true;
         }
-        if ((e.button.x >= 154 && e.button.x <= 154 + 99) && (e.button.y >= 321 && e.button.y <= 321 + 57) && !Start1)
+        if ((e.button.x >= 154 && e.button.x <= 154 + 99) && (e.button.y >= 321 && e.button.y <= 321 + 57) && !Menu_State)
         {
             GameState = false;
         }
-        if ((e.button.x >= 240 && e.button.x <= 240 + 28) && (e.button.y >= 467 && e.button.y <= 467 + 26) && (!Start1))
+        if ((e.button.x >= 240 && e.button.x <= 240 + 28) && (e.button.y >= 467 && e.button.y <= 467 + 26) && (!Menu_State))
         {
             if (volumeState)
             {
@@ -314,11 +341,24 @@ void GameFunction::Render()
 {
     SDL_RenderClear(renderer);
     
+    now = time(0);
+    ltm = localtime(&now);
+    if (ltm->tm_hour >= 18 || ltm->tm_hour <= 5)
+    {
+        b.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/background-night.png", renderer);
+        m1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/menustart-night.png", renderer);
+    }
+    else
+    {
+        b.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/background-day.png", renderer);
+        m1.CreateTexture("/Users/dinhtu/My Code/FlappyBirdGame/image/menustart-day.png", renderer);
+    }
+    
     b.Render(renderer);
     pi1.Render(renderer);
     pi2.Render(renderer);
     pi3.Render(renderer);
-    if (Start && Start1)
+    if (Start && Menu_State)
     {
         if (GameOver)
             TextObject::Render(renderer, score);
@@ -392,7 +432,7 @@ void GameFunction::Render()
         }
         
     }
-    if (!Start1)
+    if (!Menu_State)
     {
         
         m1.Render(renderer);
@@ -407,7 +447,7 @@ void GameFunction::Render()
     }
         SDL_RenderCopy(renderer, floor, NULL, &desFloor);
         SDL_RenderCopy(renderer, floor, NULL, &desFloor2);
-    if (!Start1 || !GameOver)
+    if (!Menu_State|| !GameOver)
     {
         if (volumeState)
         {
@@ -418,20 +458,9 @@ void GameFunction::Render()
             SDL_RenderCopy(renderer, mute, NULL, &vol_button);
         }
     }
-    
-//    if (!Start1 || !GameOver)
-//    {
-//        if (volumeState)
-//        {
-//            SDL_RenderCopy(renderer, unmute, NULL, &vol_button);
-//        }
-//        else
-//        {
-//            SDL_RenderCopy(renderer, mute, NULL, &vol_button);
-//        }
-//    }
+
     SDL_RenderPresent(renderer);
-    if (Start1 && MusicGameState)
+    if (Menu_State&& MusicGameState)
     {
         Mix_FadeInMusic(sound_background, -1, 2000);
         Mix_HaltChannel(1);
@@ -520,7 +549,7 @@ void GameFunction::NewGame()
             score = 0;
             //
             Start = false;
-            Start1 = true;
+            Menu_State= true;
             isFlash = true;
             GameOver = true;
             newState = false;
@@ -564,7 +593,7 @@ void GameFunction::NewGame()
             score = 0;
             //
             Start = false;
-            Start1 = false;
+            Menu_State= false;
             isFlash = true;
             GameOver = true;
             newState = false;
@@ -599,4 +628,28 @@ bool GameFunction::BirdFall()
 bool GameFunction::getGameOver()
 {
     return GameOver;
+}
+
+void GameFunction::movingPipe(int num)
+{
+    if (score >= 20)
+    {
+        if (pi_x[num] <= 288 && pi_x[num] >= -52 )
+        {
+            if (moveUp[num] && pi_y[num] > max_des_y[num])
+            {
+                pi_y[num] -= 1;
+            }
+            else
+            {
+                if (pi_y[num] < min(-10,max_des_y[num]+130))
+                {
+                    pi_y[num] += 1;
+                    moveUp[num] = false;
+                }
+                else
+                    moveUp[num] = true;
+            }
+        }
+    }
 }

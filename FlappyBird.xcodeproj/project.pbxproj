@@ -10,8 +10,8 @@
 		AC05E8B029E0B45100F32DB3 /* Background.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC05E8AE29E0B45100F32DB3 /* Background.cpp */; };
 		AC2D8FE129E031DA008A4280 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC2D8FDF29E031DA008A4280 /* GameObject.cpp */; };
 		AC2D8FE429E03505008A4280 /* Player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC2D8FE229E03505008A4280 /* Player.cpp */; };
+		AC3838A82A0D47AE005D102A /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7612EA29F5A33700D318BE /* SDL2_mixer.framework */; };
 		AC720EBD29DF492C0072B813 /* TextureFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC720EBB29DF492C0072B813 /* TextureFunction.cpp */; };
-		AC7612EB29F5A33700D318BE /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC7612EA29F5A33700D318BE /* SDL2_mixer.framework */; };
 		AC76DD7129A7C4A300176D45 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC76DD7029A7C4A300176D45 /* SDL2_image.framework */; };
 		ACA9126129E1FAB200E1892C /* Pipe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACA9125F29E1FAB200E1892C /* Pipe.cpp */; };
 		ACAEE71F29EC171300D8356B /* MenuGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ACAEE71D29EC171300D8356B /* MenuGame.cpp */; };
@@ -69,7 +69,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ACF268B7299FC285007C3A8D /* SDL2.framework in Frameworks */,
-				AC7612EB29F5A33700D318BE /* SDL2_mixer.framework in Frameworks */,
+				AC3838A82A0D47AE005D102A /* SDL2_mixer.framework in Frameworks */,
 				ACD938EC29E62D2A00E2F36A /* SDL2_ttf.framework in Frameworks */,
 				AC76DD7129A7C4A300176D45 /* SDL2_image.framework in Frameworks */,
 			);

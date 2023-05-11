@@ -10,6 +10,8 @@
 #include "TextObject.hpp"
 #include "MenuGame.hpp"
 #include <fstream>
+#include <algorithm>
+#include <ctime>
 #include <SDL2_mixer/SDL_mixer.h>
 
 using namespace std;
@@ -17,8 +19,8 @@ using namespace std;
 
 class GameFunction {
 private:
-    Player p[5];  //ingame
-    Player p1[5]; //inmenu
+    Player p[5];  //game
+    Player p1[5]; //menu
     Background b;
     Pipe pi1;
     Pipe pi2;
@@ -32,7 +34,7 @@ private:
     const int SCREEN_H = 512;
     bool GameState, GameOver;
     bool Start;  //play
-    bool Start1; //menu
+    bool Menu_State; //menu
     bool isFlash;
     bool newscoreSound;
     bool MusicGameState;
@@ -55,7 +57,7 @@ private:
     //random des_pipes_y
     random_device rd;
     mt19937 rng{rd()};
-    uniform_int_distribution<int> uni{1,290};
+    uniform_int_distribution<int> uni{10,290};
     
     int pipe_x_reset = 438;
     int pi_y[5];
@@ -64,13 +66,21 @@ private:
     //Score
     int score,bestScore;
     bool newState;
-    //
+    //sound
     Mix_Chunk* sound_effect[6];
     Mix_Chunk* sound_transition;
     Mix_Chunk* sound_menuGame;
     Mix_Music* sound_background;
-    //
+    //change bird
     int num_bird;
+    //pipes movement
+    bool moveUp[5];
+    int max_des_y[5];
+    int temporary[5];
+    //time
+    time_t now;
+    tm* ltm;
+    
 public:
     GameFunction();
     bool getGameState();
@@ -89,6 +99,7 @@ public:
     void Flash();
     bool BirdFall();
     bool getGameOver();
+    void movingPipe(int num);
 };
 
 
